@@ -216,8 +216,6 @@ Enter email address (used for urgent renewal and security notices)
 
 1. At the prompt, enter your email address.
 
-        user@example.com
-
 1. Certbot then asks you to agree to the *Let's Encrypt* terms of service.
 
     {{< output >}}

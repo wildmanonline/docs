@@ -32,11 +32,9 @@ For most operating system and web server configurations, Certbot creates signed 
 
 Make sure you have registered a Fully Qualified Domain Name (FQDN) and set up [A and AAAA](/docs/networking/dns/dns-records-an-introduction/#a-and-aaaa) DNS records that point to your Linode's public [IPv4 and IPv6 addresses](/docs/getting-started/#find-your-linode-s-ip-address). Consult our [DNS Records: An Introduction](/docs/networking/dns/dns-records-an-introduction/) and [DNS Manager](/docs/platform/manager/dns-manager/) guides for help with setting up a domain.
 
-{{< note >}}
-If you're using Apache, change each instance of `nginx` to `apache` in the following sections.
-{{< /note >}}
+You can also follow the [installation instructions](https://certbot.eff.org/instructions) on certbot's website.
 
-1.  Enable the EPEL repository:
+1. Install snapd to ensure you can use snaps ()
 
         sudo yum install epel-release
         sudo yum update

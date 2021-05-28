@@ -22,6 +22,7 @@ relations:
         keywords:
             - distribution: Ubuntu 18.04
 ---
+
 ## What is Certbot?
 
 Certbot is a tool that automates the process of getting a signed certificate via [Let's Encrypt](https://letsencrypt.org/how-it-works/) to use with TLS.

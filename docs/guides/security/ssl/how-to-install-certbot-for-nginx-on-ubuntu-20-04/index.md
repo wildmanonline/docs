@@ -203,8 +203,6 @@ Enter email address (used for urgent renewal and security notices)
 
 1.  Enter your email address at the prompt.
 
-        user@example.com
-
 1.  Certbot next asks you to agree to the Let's Encrypt terms of service.
 
     {{< output >}}
@@ -215,10 +213,7 @@ agree in order to register with the ACME server. Do you agree?
 
 1.  Use the link to download the PDF file and review the document. If you agree with the terms, enter `Y`. Entering `N` terminates the certificate request.
 
-        Y
 1.  Certbot asks if you want to subscribe to the EFF mailing list. You can answer either `Y` or `N` without affecting the rest of the installation.
-
-        Y
 
 1.  Certbot now requests a domain name for the certificate. Certificates for multiple domains can be requested at the same time.
 
