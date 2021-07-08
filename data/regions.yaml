@@ -1,0 +1,77 @@
+atlanta:
+  id: atlanta
+  city: "Atlanta"
+  country: "United States"
+  region: "North America, South East"
+  api_id: us-southeast
+  website_url: "https://www.linode.com/global-infrastructure/#data-center--atlanta"
+dallas:
+  id: dallas
+  city: "Dallas"
+  country: "United States"
+  region: "North America, South Central"
+  api_id: us-central
+  website_url: "https://www.linode.com/global-infrastructure/#data-center--dallas"
+frankfurt:
+  id: frankfurt
+  city: "Frankfurt"
+  country: "Germany"
+  region: "Europe, Central"
+  api_id: eu-central
+  website_url: "https://www.linode.com/global-infrastructure/#data-center--frankfurt"
+fremont:
+  id: fremont
+  city: "Fremont"
+  country: "United States"
+  region: "North America, West"
+  api_id: us-west
+  website_url: "https://www.linode.com/global-infrastructure/#data-center--fremont"
+london:
+  id: london
+  city: "London"
+  country: "United Kingdom"
+  region: "Europe, West"
+  api_id: eu-west
+  website_url: "https://www.linode.com/global-infrastructure/#data-center--london"
+mumbai:
+  id: mumbai
+  city: "Mumbai"
+  country: "India"
+  region: "Asia Pacific, West"
+  api_id: ap-west
+  website_url: "https://www.linode.com/global-infrastructure/#data-center--mumbai"
+newark:
+  id: newark
+  city: "Newark"
+  country: "United States"
+  region: "North America, East"
+  api_id: us-east
+  website_url: "https://www.linode.com/global-infrastructure/#data-center--newark"
+singapore:
+  id: singapore
+  city: "Singapore"
+  country: "Singapore"
+  region: "Asia Pacific, South"
+  api_id: ap-south
+  website_url: "https://www.linode.com/global-infrastructure/#data-center--singapore"
+sydney:
+  id: sydney
+  city: "Sydney"
+  country: "Australia"
+  region: "Asia Pacific, South East"
+  api_id: ap-southeast
+  website_url: "https://www.linode.com/global-infrastructure/#data-center--sydney"
+tokyo:
+  id: tokyo
+  city: "Tokyo"
+  country: "Japan"
+  region: "Asia Pacific - North East"
+  api_id: ap-northeast
+  website_url: "https://www.linode.com/global-infrastructure/#data-center--tokyo"
+toronto:
+  id: toronto
+  city: "Toronto"
+  country: "Canada"
+  region: "North America, North Central"
+  api_id: ca-central
+  website_url: "https://www.linode.com/global-infrastructure/#data-center--toronto"
