@@ -2,9 +2,9 @@ id: block-storage
 name: "Block Storage"
 urls:
   marketing: "https://www.linode.com/products/block-storage/"
-  pricing: "https://www.linode.com/pricing/#row--dedicated"
+  pricing: "https://www.linode.com/pricing/#row--storage"
   product_docs: "/docs/products/storage/block-storage/"
   api_docs: "/docs/api/volumes/"
 availability:
-  default: partial
-  full: atlanta, dallas, fremont, newark
+  default: full
+  none: atlanta

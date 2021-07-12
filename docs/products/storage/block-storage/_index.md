@@ -10,6 +10,10 @@ cascade:
     product_description: "Linode’s Block Storage service lets you increase your Linode’s storage capacity by attaching additional high-speed volumes. Volumes are managed independently of Linodes, so your data persists even if you delete your Linode."
 ---
 
+## Pricing
+
+Block Storage Volumes cost $0.10/GiB per month and can range from 10 GiB to 10,000 GiB in size. When you create your Block Storage Volume you can designate its storage capacity and resize it up, if needed.
+
 ## Availability
 
 {{< availability id="block-storage" display="grid" >}}
@@ -38,7 +42,3 @@ Linode Block Storage is powered by a combination of large capacity HDDs and ultr
 ## Scalable Storage
 
 A Block Storage Volume augments the raw storage capacity of a cloud instance, which can be useful if your storage needs are greater than your computing demands. Because a Volume is scalable, it can adapt as your data grows in size.
-
-## Plans and Pricing
-
-Block Storage Volumes cost $0.10/GiB per month and can range from 10 GiB to 10,000 GiB in size. When you create your Block Storage Volume you can designate its storage capacity and resize it up, if needed.

@@ -13,6 +13,9 @@ aliases: ['/platform/object-storage/pricing-and-limitations/', '/guides/pricing-
 
 ## Availability
 
+
+{{< availability id="object-storage" display="grid" >}}
+
 Object Storage is available within the follow data centers.
 
 | Data Center | Cluster ID |

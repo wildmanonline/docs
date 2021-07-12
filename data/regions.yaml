@@ -2,6 +2,7 @@ atlanta:
   id: atlanta
   city: "Atlanta"
   country: "United States"
+  parent-region: "North America"
   region: "North America, South East"
   api_id: us-southeast
   website_url: "https://www.linode.com/global-infrastructure/#data-center--atlanta"
