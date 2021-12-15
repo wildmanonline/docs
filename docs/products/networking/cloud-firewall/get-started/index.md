@@ -1,6 +1,7 @@
 ---
 title: Get Started
 description: "Get started with Linode Cloud Firewall. Learn to add a Cloud Firewall, assign a Cloud Firewall to a Linode, add and edit rules, update your Cloud Firewall status, and delete a Cloud Firewall."
+aliases: ['/platform/cloud-firewall/getting-started-with-cloud-firewall/','/guides/getting-started-with-cloud-firewall/']
 tab_group_main:
     weight: 20
 ---

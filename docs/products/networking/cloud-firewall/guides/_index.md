@@ -5,7 +5,7 @@ tab_group_main:
     weight: 30
 ---
 
-## Building Blocks
+## Basics
 
 These introductory guides to Linode Cloud Firewall will help get you up and running with the service:
 
@@ -22,7 +22,7 @@ Delete individual rules that are no longer needed using the Cloud Manager.
 
 - [Edit Rules](/docs/products/networking/cloud-firewall/guides/edit-rules/): Edit predefined and custom Cloud Firewall Rules using the Cloud Manager.
 
-- [Update Firewall Status](/docs/products/networking/cloud-firewall/guides/update-status/): Disable or Enable a Cloud Firewall by setting the status in the Cloud Manager.
+- [Enable or Disable a Cloud Firewall](/docs/products/networking/cloud-firewall/guides/update-status/): Enable or Disable a Cloud Firewall by setting the status in the Cloud Manager.
 
 ### Cloud Firewall Basics
 
