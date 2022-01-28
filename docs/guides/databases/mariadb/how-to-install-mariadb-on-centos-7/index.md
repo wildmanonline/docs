@@ -26,11 +26,10 @@ relations:
             - distribution: CentOS 7
 tags: ["mariadb","database","centos"]
 aliases: ['/databases/mariadb/how-to-install-mariadb-on-centos-7/']
+image: how-to-install-mariadb-on-centos-7.png
 ---
 
 MariaDB is a fork of the popular cross-platform MySQL database management system and is considered a full [drop-in replacement](https://mariadb.com/kb/en/mariadb/mariadb-vs-mysql-features/) for MySQL. MariaDB was created by one of MySQL's original developers in 2009 after MySQL was acquired by Oracle during the Sun Microsystems merger. Today MariaDB is maintained and developed by the [MariaDB Foundation](https://mariadb.org/en/foundation/) and community contributors with the intention of it remaining GNU GPL software.
-
-![How to Install MariaDB on CentOS 7](how-to-install-mariadb-on-centos-7.png)
 
 MariaDB replaced MySQL as the default database system in the CentOS 7 repositories. Though installing MySQL into CentOS 7 is not difficult see, [install mysql CentOS 7](/docs/databases/mysql/how-to-install-mysql-on-centos-7/), if you simply need a database MariaDB is recommended for official support and a minimal chance of incompatibilities with other repository software.
 
@@ -49,7 +48,7 @@ This guide is written for a non-root user. Commands that require elevated privil
 
     The first command should show your short hostname, and the second should show your fully qualified domain name (FQDN).
 
-2.  Update your system:
+1.  Update your system:
 
         sudo yum update
 
@@ -87,13 +86,13 @@ The standard tool for interacting with MariaDB is the `mariadb` client, which in
 
         mysql -u root -p
 
-2.  When prompted, enter the root password you assigned when the `mysql_secure_installation` script was run.
+1.  When prompted, enter the root password you assigned when the `mysql_secure_installation` script was run.
 
     You'll then be presented with a welcome header and the MariaDB prompt as shown below:
 
         MariaDB [(none)]>
 
-3.  To generate a list of commands for the MariaDB prompt, enter `\h`. You'll then see:
+1.  To generate a list of commands for the MariaDB prompt, enter `\h`. You'll then see:
 
         List of all MySQL commands:
         Note that all text commands must be first on line and end with ';'
@@ -127,7 +126,8 @@ The standard tool for interacting with MariaDB is the `mariadb` client, which in
         MariaDB [(none)]>
 
 ### Create a New MariaDB User and Database
-1. In the example below, `testdb` is the name of the database, `testuser` is the user, and `password` is the user's password:
+
+1.  In the example below, `testdb` is the name of the database, `testuser` is the user, and `password` is the user's password:
 
         create database testdb;
         create user 'testuser'@localhost identified by 'password';
@@ -138,7 +138,7 @@ The standard tool for interacting with MariaDB is the `mariadb` client, which in
         create database testdb;
         grant all on testdb.* to 'testuser' identified by 'password';
 
-2.  Then exit MariaDB:
+1.  Then exit MariaDB:
 
         exit
 
@@ -148,16 +148,16 @@ The standard tool for interacting with MariaDB is the `mariadb` client, which in
 
         mysql -u testuser -p
 
-2.  Create a sample table called `customers`. This creates a table with a customer ID field of the type `INT` for integer (auto-incremented for new records, used as the primary key), as well as two fields for storing the customer's name:
+1.  Create a sample table called `customers`. This creates a table with a customer ID field of the type `INT` for integer (auto-incremented for new records, used as the primary key), as well as two fields for storing the customer's name:
 
         use testdb;
         create table customers (customer_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, first_name TEXT, last_name TEXT);
 
-3.  View the new table:
+1.  View the new table:
 
         show tables;
 
-3.  Then exit MariaDB:
+1.  Then exit MariaDB:
 
         exit
 
@@ -170,18 +170,18 @@ If you forget your root MariaDB password, it can be reset.
         sudo systemctl stop mariadb
         sudo mysqld_safe --skip-grant-tables &
 
-2.  Reconnect to the MariaDB server with the MariaDB root account:
+1.  Reconnect to the MariaDB server with the MariaDB root account:
 
         mysql -u root
 
 
-3.  Use the following commands to reset root's password. Replace `password` with a strong password:
+1.  Use the following commands to reset root's password. Replace `password` with a strong password:
 
         use mysql;
         update user SET PASSWORD=PASSWORD("password") WHERE USER='root';
         flush privileges;
         exit
 
-4.  Then restart MariaDB:
+1.  Then restart MariaDB:
 
         sudo systemctl start mariadb

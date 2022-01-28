@@ -3,8 +3,7 @@ slug: nodejs-twitter-bot
 author:
     name: Pj Metz
     email: metz.pj@gmail.com
-description: 'How to make a Twitter bot with Node.js, publish it to GitHub, and then host it on a Linode cloud instance. The guide is intended for people new to coding.'
-og_description: 'How to make a Twitter bot with Node.js, publish it to GitHub, and then host it on a Linode cloud instance. The guide is intended for people new to coding.'
+description: "How to make a Twitter bot with Node.js, publish it to GitHub, and then host it on a Linode cloud instance. The guide is intended for people new to coding."
 keywords: ["how to make a twitter bot", "node twitter", "reply bot twitter", "node twitter api tutorial"]
 tags: ["version control system", "javascript"]
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
@@ -69,17 +68,17 @@ The following software is needed on your workstation to complete the tutorial:
 
 The original [nvm](https://github.com/nvm-sh/nvm) software project is used on **Unix, Linux, and macOS**:
 
-1. Follow the [Installing and Configuring NVM](/docs/guides/how-to-install-use-node-version-manager-nvm/#installing-and-configuring-nvm) section of our [How to Install and Use the Node Version Manager](/docs/guides/how-to-install-use-node-version-manager-nvm/) guide to install nvm.
+1.  Follow the [Installing and Configuring NVM](/docs/guides/how-to-install-use-node-version-manager-nvm/#installing-and-configuring-nvm) section of our [How to Install and Use the Node Version Manager](/docs/guides/how-to-install-use-node-version-manager-nvm/) guide to install nvm.
 
-1. Run this command from your terminal. This installs the latest version of Node.js and npm:
+1.  Run this command from your terminal. This installs the latest version of Node.js and npm:
 
         nvm install --lts
 
 A separate [nvm-windows](https://github.com/coreybutler/nvm-windows) project was created for native installation on **Windows**:
 
-1. Follow the [instructions in the project's README](https://github.com/coreybutler/nvm-windows#installation--upgrades) to install nvm-windows.
+1.  Follow the [instructions in the project's README](https://github.com/coreybutler/nvm-windows#installation--upgrades) to install nvm-windows.
 
-1. Run this command from your terminal. This installs the latest version of Node.js and npm:
+1.  Run this command from your terminal. This installs the latest version of Node.js and npm:
 
         nvm install latest
 
@@ -149,7 +148,7 @@ A Git repository's `.gitignore` file allows you to specify certain files or file
 
         ![Github.com repository showing the green Code button clicked with Open in Github Desktop option highlighted](github-repo-open-in-github-desktop-highlighted.png "Github.com repository showing the green Code button clicked with Open in Github Desktop option highlighted")
 
-    - **To use the command line**, run the `git clone` command in your terminal as follows:
+    -   **To use the command line**, run the `git clone` command in your terminal as follows:
 
             git clone https://github.com/your-github-username/snes-soundtracks.git
 
@@ -259,7 +258,7 @@ By default, the app that you created has Read Only permissions. Apps that are se
 
 Right now, your local repository contains four files: your `.env` secrets, a `.gitignore`, a `README.md`, and a `LICENSE` file. It does not have any Node.js project files yet. To initialize your Node.js project:
 
-1. Navigate to your local code repository in your terminal:
+1.  Navigate to your local code repository in your terminal:
 
         cd snes-soundtracks
 
@@ -267,7 +266,7 @@ Right now, your local repository contains four files: your `.env` secrets, a `.g
 If you are using VS Code's built-in terminal and have your code repository folder open, then you do not need to run this `cd` command. This is because VS Code's terminal automatically starts inside the folder for your editor's workspace.
 {{< /note >}}
 
-1. Run npm's `init` command:
+1.  Run npm's `init` command:
 
         npm init -y
 
@@ -301,7 +300,7 @@ Wrote to /home/username/snes-soundtracks/package.json:
 
     This output shows the contents of a new `package.json` file that was created by the `npm init` command. The `package.json` file contains metadata about your Node.js project. For more information about this file, see the [What is the file `package.json`](https://nodejs.org/en/knowledge/getting-started/npm/what-is-the-file-package-json/) article in the official Node.js documentation, and the [`package.json` reference](https://docs.npmjs.com/cli/v7/configuring-npm/package-json) in the npm documentation.
 
-1. The application code for your bot relies on a few different dependencies from npm. To install these dependencies, enter these commands in your terminal while still inside the code repository:
+1.  The application code for your bot relies on a few different dependencies from npm. To install these dependencies, enter these commands in your terminal while still inside the code repository:
 
         npm install node
         npm install node-schedule
@@ -331,7 +330,7 @@ Wrote to /home/username/snes-soundtracks/package.json:
 
 Before we can start adding our code, we should adjust a few parts of the `package.json` file in the new Node.js project.
 
-1. Currently, the `scripts` section of your `package.json` should look like:
+1.  Currently, the `scripts` section of your `package.json` should look like:
 
     {{< file "package.json" javascript >}}
   "scripts": {
@@ -351,7 +350,7 @@ Before we can start adding our code, we should adjust a few parts of the `packag
   },
 {{< /file >}}
 
-1. Scroll to the `main` section of the same file. This should currently look like:
+1.  Scroll to the `main` section of the same file. This should currently look like:
 
     {{< file "package.json" javascript >}}
   "main": "index.js",
@@ -363,7 +362,7 @@ Before we can start adding our code, we should adjust a few parts of the `packag
   "main": "snes.js",
 {{< /file >}}
 
-1. These changes reference an `snes.js` file that doesn’t exist yet. Create an empty placeholder file with this name in your code repository. The [`touch` command](https://en.wikipedia.org/wiki/Touch_(command)) can do this from your terminal (or you can just create the empty file with your text editor):
+1.  These changes reference an `snes.js` file that doesn’t exist yet. Create an empty placeholder file with this name in your code repository. The [`touch` command](https://en.wikipedia.org/wiki/Touch_(command)) can do this from your terminal (or you can just create the empty file with your text editor):
 
         touch snes.js
 
@@ -635,7 +634,7 @@ In the next two sections, this tutorial demonstrates two methods for creating a 
 
 ### Commit and Push with GitHub Desktop
 
-1. Open GitHub Desktop on your workstation. The new files that you created are shown under the **Changes** tab on the left, and they are automatically selected for the new commit.
+1.  Open GitHub Desktop on your workstation. The new files that you created are shown under the **Changes** tab on the left, and they are automatically selected for the new commit.
 
     ![GitHub Desktop - Commit to main](github-desktop-commit-to-main.png "GitHub Desktop - Commit to main")
 
@@ -665,7 +664,7 @@ Branches in Git allow you to work on new features for your projects without alte
 
 ### Commit and Push with the Git Command Line
 
-1. Return to your local code repository in your terminal, then run:
+1.  Return to your local code repository in your terminal, then run:
 
         git status
 
@@ -689,7 +688,7 @@ Untracked files:
 Not all of the files that are in your Node.js project, like the `node_modules` folder, or the `.env` secrets file, are shown. This is because they are excluded by the `.gitignore` file.
 {{< /note >}}
 
-1. Before you can commit the files, you need to *stage* them. Staging tells Git that you want to include the files in the next commit that you make. To stage your files, run:
+1.  Before you can commit the files, you need to *stage* them. Staging tells Git that you want to include the files in the next commit that you make. To stage your files, run:
 
         git add .
 
@@ -697,7 +696,7 @@ Not all of the files that are in your Node.js project, like the `node_modules` f
 The period at the end of this command tells git to add all the files in your current directory to the stage.
 {{< /note >}}
 
-1. Then run the `status` command again:
+1.  Then run the `status` command again:
 
         git status
 
@@ -721,7 +720,7 @@ Changes to be committed:
 Branches in Git allow you to work on new features for your projects without altering the files in your other branches.
 {{< /note >}}
 
-1. Git now knows to include the new files in your next commit. To make the commit, run:
+1.  Git now knows to include the new files in your next commit. To make the commit, run:
 
         git commit -m "Add Twitter bot application code"
 
@@ -736,7 +735,7 @@ Branches in Git allow you to work on new features for your projects without alte
  create mode 100644 snes.js
  {{< /output >}}
 
- 1. Next, push the new commit to your repository on GitHub:
+1.  Next, push the new commit to your repository on GitHub:
 
         git push origin main
 
@@ -757,7 +756,7 @@ To https://github.com/your-github-username/snes-soundtracks.git
    735ecd1..e5d6839  main -> main
 {{< /output >}}
 
-1. If you visit your repository on GitHub, the new files for your Node.js project are present.
+1.  If you visit your repository on GitHub, the new files for your Node.js project are present.
 
 ## Run the Code
 
@@ -780,7 +779,7 @@ If any errors appear, they are likely related to an authentication failure with 
 
 At this point, the bot is running, and if you wait long enough, then it should send a scheduled Tweet. We can also test `pressSelect` on its own and make sure the tweeting function works, To do this, you need to modify the code slightly.
 
-1. Comment out the last line of the code in `snes.js` and call `pressSelect` directly:
+1.  Comment out the last line of the code in `snes.js` and call `pressSelect` directly:
 
     {{< file "snes.js" javascript >}}
 // ... modify end of file as follows:
@@ -792,7 +791,7 @@ pressSelect();
 
     By doing this, the tweeting function runs immediately, and you don’t have to wait until the next scheduled Tweet.
 
-1. Type `CTRL-c` to interrupt and stop the bot. Then run the code again:
+1.  Type `CTRL-c` to interrupt and stop the bot. Then run the code again:
 
         npm run develop
 
@@ -816,9 +815,9 @@ Note that Twitter has automatically shortened the link to the soundtrack in the 
 
 Lastly, you can test the way the bot responds to other users:
 
-1. Undo the code changes you made in the [Test the Tweet Function](#test-the-tweet-function) section: remove the `pressSelect();` line that was added, uncomment the last line, and save the file.
+1.  Undo the code changes you made in the [Test the Tweet Function](#test-the-tweet-function) section: remove the `pressSelect();` line that was added, uncomment the last line, and save the file.
 
-1. Type `CTRL-c` to interrupt and stop the bot. Then run the code again:
+1.  Type `CTRL-c` to interrupt and stop the bot. Then run the code again:
 
         npm run develop
 
@@ -880,13 +879,13 @@ The rest of the steps in the [How to Secure Your Server](/docs/guides/securing-y
 
 1. Node.js and NPM are not preinstalled on Ubuntu 20.04, so you need to install those in order to run the bot. As on your workstation, the recommended way is to use nvm:
 
-    1. On the Linode, run the nvm installer:
+    1.  On the Linode, run the nvm installer:
 
             wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
-    1. Log out of the Linode and then log back in again. This is needed to start using the nvm command.
+    1.  Log out of the Linode and then log back in again. This is needed to start using the nvm command.
 
-    1. Install the latest Node.js and npm via nvm:
+    1.  Install the latest Node.js and npm via nvm:
 
             nvm install --lts
 
@@ -925,9 +924,9 @@ After finishing the file transfer, proceed to the [run the bot](#run-the-bot-on-
 
 ### Upload the Bot with Git Clone
 
-1. Git is preinstalled on Ubuntu 20.04, but you still need to configure it like you did on your workstation. While inside your SSH or Lish connection to your Linode, follow the [Configure Git](/docs/guides/how-to-configure-git/#configure-git) section of our [Getting Started with Git](/docs/guides/how-to-configure-git/) guide. When doing this, you don't need to set the `core.editor` option, but it is important to set your username and email for Git.
+1.  Git is preinstalled on Ubuntu 20.04, but you still need to configure it like you did on your workstation. While inside your SSH or Lish connection to your Linode, follow the [Configure Git](/docs/guides/how-to-configure-git/#configure-git) section of our [Getting Started with Git](/docs/guides/how-to-configure-git/) guide. When doing this, you don't need to set the `core.editor` option, but it is important to set your username and email for Git.
 
-1. To clone your GitHub repository to your Linode, run the `git clone` command from your SSH or Lish connection. Be sure to substitute your own GitHub username in for `your-github-username` and the name you chose for the repository for `snes-soundtracks` before running the command:
+1.  To clone your GitHub repository to your Linode, run the `git clone` command from your SSH or Lish connection. Be sure to substitute your own GitHub username in for `your-github-username` and the name you chose for the repository for `snes-soundtracks` before running the command:
 
         git clone https://github.com/your-github-username/snes-soundtracks.git
 
@@ -935,14 +934,14 @@ After finishing the file transfer, proceed to the [run the bot](#run-the-bot-on-
 If you previously created a private GitHub repository, then the above command prompts for your password. You should enter the *personal access token* (and not your normal GitHub password) that you created when setting up [command line authentication for GitHub](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/about-authentication-to-github#authenticating-with-the-command-line) earlier.
 {{< /note >}}
 
-1. Cloning the repository does not install the NPM dependencies for your project. This is because they were contained in the `node_modules` folder of your project, which was excluded from version control in your `.gitignore` file. The required dependencies are still outlined in your `package.json`, which we can use to reinstall them on your Linode. Navigate to the new cloned repository and then install them:
+1.  Cloning the repository does not install the NPM dependencies for your project. This is because they were contained in the `node_modules` folder of your project, which was excluded from version control in your `.gitignore` file. The required dependencies are still outlined in your `package.json`, which we can use to reinstall them on your Linode. Navigate to the new cloned repository and then install them:
 
         cd snes-soundtracks
         npm install
 
     The `npm install` command looks at your package.json and installs every dependency that it finds into the `node_modules` folder.
 
-1. The `.env` file was also excluded from version control, so it needs to be copied to your Linode separately. On your workstation, open your local `.env` and copy its contents to your clipboard. Then inside the code repository on the Linode, create a new `.env` file. You can use [the `nano` command line text editor](/docs/guides/use-nano-to-edit-files-in-linux/) to do this:
+1.  The `.env` file was also excluded from version control, so it needs to be copied to your Linode separately. On your workstation, open your local `.env` and copy its contents to your clipboard. Then inside the code repository on the Linode, create a new `.env` file. You can use [the `nano` command line text editor](/docs/guides/use-nano-to-edit-files-in-linux/) to do this:
 
         nano .env
 
@@ -950,13 +949,13 @@ If you previously created a private GitHub repository, then the above command pr
 
     ![nano text editor interface](nano-empty-env-file.png "nano text editor interface")
 
-1. Paste the contents of your clipboard into the editor.
+1.  Paste the contents of your clipboard into the editor.
 
-1. Type `CTRL-o` to save the file, and hit `Enter` when the editor prompts you to confirm the `.env` filename.
+1.  Type `CTRL-o` to save the file, and hit `Enter` when the editor prompts you to confirm the `.env` filename.
 
-1. Type `CTRL-x` to exit the editor.
+1.  Type `CTRL-x` to exit the editor.
 
-1. Remove file system read and write [file permissions](/docs/guides/modify-file-permissions-with-chmod/) for groups and other users on the Linode for the `.env` file:
+1.  Remove file system read and write [file permissions](/docs/guides/modify-file-permissions-with-chmod/) for groups and other users on the Linode for the `.env` file:
 
         chmod go-rw .env
 
@@ -974,29 +973,29 @@ However, the bot does not stay running if you close your SSH connection (for exa
 
 To keep your bot running uninterrupted, you can start a Screen session. [Screen](https://www.linode.com/docs/guides/using-gnu-screen-to-manage-persistent-terminal-sessions/) is a useful tool for creating terminal sessions that stay alive and that can be accessed from any SSH or Lish connection. It's also preinstalled on Ubuntu 20.04, so you can start using it immediately:
 
-1. If you ran `npm run develop` on your Linode, type `CTRL-c` to stop the bot.
+1.  If you ran `npm run develop` on your Linode, type `CTRL-c` to stop the bot.
 
-1. From your Linode, run:
+1.  From your Linode, run:
 
         screen
 
-1. This creates a new Screen session. A welcome message for the new session is presented. Close this message by hitting `Enter` on your keyboard.
+1.  This creates a new Screen session. A welcome message for the new session is presented. Close this message by hitting `Enter` on your keyboard.
 
-1. You are now in your Screen session. Run the bot again:
+1.  You are now in your Screen session. Run the bot again:
 
         npm run develop
 
-1. Then, *detach* from the Screen session by typing `CTRL-a`, followed by the `d` key. This brings you back to your previous terminal history. After detaching, a message like this appears:
+1.  Then, *detach* from the Screen session by typing `CTRL-a`, followed by the `d` key. This brings you back to your previous terminal history. After detaching, a message like this appears:
 
     {{< output >}}
 [detached from 38905.pts-0.localhost]
 {{< /output >}}
 
-1. Your bot continues to run, and it runs even if you close your SSH or Lish connection. You can later return to your bot from the same SSH or Lish connection, or from a new connection. This command *reattaches* to your screen session:
+1.  Your bot continues to run, and it runs even if you close your SSH or Lish connection. You can later return to your bot from the same SSH or Lish connection, or from a new connection. This command *reattaches* to your screen session:
 
         screen -r
 
-1. If you want to halt your bot, reattach to the screen session, then type `CTRL-c`.
+1.  If you want to halt your bot, reattach to the screen session, then type `CTRL-c`.
 
 ## Troubleshooting
 

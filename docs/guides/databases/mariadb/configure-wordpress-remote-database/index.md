@@ -17,9 +17,8 @@ external_resources:
  - '[MariaDB SQL commands](https://mariadb.com/kb/en/sql-commands/)'
 tags: ["wordpress","mariadb","database"]
 aliases: ['/databases/mariadb/configure-wordpress-remote-database/']
+image: Configure_WordPress_to_use_a_Remote_Database_smg.jpg
 ---
-
-![Configure WordPress to use a Remote Database](Configure_WordPress_to_use_a_Remote_Database_smg.jpg)
 
 ## Before You Begin
 
@@ -271,7 +270,7 @@ An optional company name []:
 
         sudo openssl x509 -req -in client-req.pem -days 36500 -CA cacert.pem -CAkey ca-key.pem -set_serial 01 -out client-cert.pem
 
-10.  Verify the certificates:
+10. Verify the certificates:
 
         openssl verify -CAfile cacert.pem server-cert.pem client-cert.pem
 

@@ -2,7 +2,7 @@
 slug: get-started-with-bokeh-and-python-data-visualizations
 author:
   name: John Mueller
-description: 'Bokeh is a Python interactive visualization library. This guide provides an overview of Bokeh''s main features with example code you can run on your computer.'
+description: "Bokeh is a Python interactive visualization library. This guide provides an overview of Bokeh's main features with example code you can run on your computer."
 keywords: ['bokeh python']
 tags: ['python']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
@@ -34,11 +34,11 @@ This section shows you how to install Bokeh using Pip and Anaconda or Miniconda.
 If you are not familiar with Pip, see our [Managing Python Packages and Versions on Linux](/docs/guides/how-to-manage-packages-and-virtual-environments-on-linux/#what-is-pip) guide. To learn how to install Anaconda, see our [How to Install Anaconda on Ubuntu](/docs/guides/how-to-install-anaconda/) guide.
 {{< /note >}}
 
-1. Install Bokeh on your computer using Anaconda or Miniconda:
+-   **Using Anaconda or Miniconda:**
 
         conda install bokeh
 
-    To install Bokeh using Pip, issue the following command:
+-   **Using pip**
 
         pip install bokeh
 

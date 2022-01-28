@@ -3,7 +3,7 @@ slug: how-to-set-up-tinc-peer-to-peer-vpn
 author:
   name: Linode Community
   email: docs@linode.com
-description: 'This guide details how to set up tinc, an open-source, peer-to-peer VPN on your Linode.'
+description: "This guide details how to set up tinc, an open-source, peer-to-peer VPN on your Linode."
 keywords: ["VPN", "tinc", "Ubuntu", "security"]
 tags: ["ubuntu","networking","security","vpn"]
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
@@ -12,13 +12,11 @@ published: 2017-09-19
 modified: 2017-09-20
 modified_by:
   name: Linode
-title: 'How to Set up tinc, a Peer-to-Peer VPN'
+title: "How to Set up tinc, a Peer-to-Peer VPN"
 contributor:
   name: Damaso Sanoja
+image: tinc.jpg
 ---
-
-
-![How to Set up tinc, a Peer-to-Peer VPN](tinc.jpg "How to Set up tinc, a Peer-to-Peer VPN")
 
 Virtual Private Networks (VPN) are an essential part of any serious network security deployment plan. There are many open-source VPN options but one of them shines above the others: tinc. All VPNs behave as a secure tunnel between two points, but [tinc](https://www.tinc-vpn.org/) stands out for its "Peer-to-Peer" design. The design allows tinc users a great deal of flexibility, especially when planning a mesh-type network.
 
@@ -30,11 +28,11 @@ You will need at least two Linodes for this guide. Complete the following steps 
 
 1.  Complete the [Getting Started](/docs/getting-started) guide.
 
-2.  Follow the [Securing Your Server](/docs/security/securing-your-server/) guide to create a standard user account, harden SSH access and remove unnecessary network services.
+1.  Follow the [Securing Your Server](/docs/security/securing-your-server/) guide to create a standard user account, harden SSH access and remove unnecessary network services.
 
     This guide will use `sudo` wherever possible. Please ensure you have access to privileged user rights.
 
-3.  Update your packages:
+1.  Update your packages:
 
         sudo apt update && sudo apt upgrade
 
@@ -74,15 +72,15 @@ Ubuntu 16.04 will be used for all of the Linodes in this guide. At the time of t
 
         sudo apt install build-essential automake libssl-dev liblzo2-dev libbz2-dev zlib1g-dev
 
-2.  Get the latest version of tinc from the developer's site:
+1.  Get the latest version of tinc from the developer's site:
 
         wget https://tinc-vpn.org/packages/tinc-1.0.33.tar.gz
 
-3.  Extract the archive in a temporary folder:
+1.  Extract the archive in a temporary folder:
 
         tar -xf tinc-1.0.33.tar.gz
 
-4.  Compile tinc on your system:
+1.  Compile tinc on your system:
 
         cd tinc-1.0.33
         ./configure --prefix=
@@ -112,7 +110,7 @@ AddressFamily = ipv4
     * `Device` - Determines the virtual network to use. Tinc will automatically detect what kind of device you are using.
     * `AddressFamily` - Tell tinc which type of address to use.
 
-2.  Now you need to generate the database server's configuration file:
+1.  Now you need to generate the database server's configuration file:
 
     {{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
 Name = dbserver
@@ -128,7 +126,7 @@ ConnectTo = appserver
 You can customize tinc behavior with many other parameters in the configuration file, for more information visit the [tinc documentation](https://www.tinc-vpn.org/documentation/tinc.conf.5).
 {{< /note >}}
 
-3.  Create the **hosts** configuration file. Because tinc is built using a peer-to-peer model each node needs to communicate with the others. The basic host file for the application server is:
+1.  Create the **hosts** configuration file. Because tinc is built using a peer-to-peer model each node needs to communicate with the others. The basic host file for the application server is:
 
     {{< file "/etc/tinc/linodeVPN/hosts/appserver" aconf >}}
 Address = 11.11.11.11
@@ -137,7 +135,7 @@ Subnet = 192.168.100.209
 {{< /file >}}
 
 
-4.  Similarly, create a host file for Database Server:
+1.  Similarly, create a host file for Database Server:
 
     {{< file "/etc/tinc/linodeVPN/hosts/dbserver" aconf >}}
 Address = 22.22.22.22
@@ -146,13 +144,13 @@ Subnet = 192.168.100.130
 {{< /file >}}
 
 
-5.  Add the public key of each node. tinc can create the key pair using the following command:
+1.  Add the public key of each node. tinc can create the key pair using the following command:
 
         sudo tincd -n linodeVPN -K 4096
 
     For this example we're using 4096-bit encryption, you can choose a higher level if necessary. Save both `rsa_key.pub` and `rsa_key.priv` to the root of your working directory, `/etc/tinc/linodeVPN`.
 
-6.  Next, append the `rsa_key.pub` at the end of each host file. From the application server:
+1.  Next, append the `rsa_key.pub` at the end of each host file. From the application server:
 
         sudo bash -c "cat /etc/tinc/linodeVPN/rsa_key.pub >> /etc/tinc/linodeVPN/hosts/appserver"
 
@@ -186,7 +184,7 @@ ip link set $INTERFACE down
 {{< /file >}}
 
 
-2.  Create a similar set of scripts on the database server:
+1.  Create a similar set of scripts on the database server:
 
     {{< file "/etc/tinc/linodeVPN/tinc-up" aconf >}}
 #!/bin/sh
@@ -208,7 +206,7 @@ ip link set $INTERFACE down
 {{< /file >}}
 
 
-3.  After creating the control scripts, you will need to change the permissions on both servers:
+1.  After creating the control scripts, you will need to change the permissions on both servers:
 
         sudo chmod -v +x /etc/tinc/linodeVPN/tinc-{up,down}
 
@@ -232,9 +230,7 @@ RestartSec=60
 
 [Install]
 WantedBy=multi-user.target
-
 {{< /file >}}
-
 
 {{< note >}}
 A debug level of `3` was chosen in the `tincd` command. This will log all requests from other daemons and include an authentication chain between them. See the [tincd documentation](https://www.tinc-vpn.org/documentation/tincd.8) for more information about debug levels.
@@ -260,7 +256,7 @@ From the database server:
 
         sudo tincd -n linodeVPN -D -d3
 
-2.  Do the same on database server:
+1.  Do the same on database server:
 
         sudo tincd -n linodeVPN -D -d3
 
@@ -268,7 +264,7 @@ From the database server:
 
     ![VPN output](appserver-dbserver-output.jpg "VPN output")
 
-3.  You can open another terminal (i.e., from `appserver`) and check the active interfaces:
+1.  You can open another terminal (i.e., from `appserver`) and check the active interfaces:
 
         sudo ip a
 
@@ -306,7 +302,7 @@ The cheat sheet for this topology is:
 
 1.  Configure the new webserver (Linode 3). Follow the previously explained steps to install the tinc VPN and create the working directory.
 
-2.  The main configuration file for this instance would be:
+1.  The main configuration file for this instance would be:
 
     {{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
 Name = webserver
@@ -314,53 +310,44 @@ Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = appserver
 ConnectTo = dbserver
-
 {{< /file >}}
 
-
-3.  Edit the host file:
+1.  Edit the host file:
 
     {{< file "/etc/tinc/linodeVPN/hosts/webserver" aconf >}}
 Address = 33.33.33.33
 Subnet = 192.168.100.140
-
 {{< /file >}}
 
-
-4.  This time increase the security level on the encryption keys:
+1.  This time increase the security level on the encryption keys:
 
         sudo tincd -n linodeVPN -K 8192
 
-5.  Once again, you need to append the public key to the host file:
+1.  Once again, you need to append the public key to the host file:
 
         sudo bash -c "cat /etc/tinc/linodeVPN/rsa_key.pub >> /etc/tinc/linodeVPN/hosts/webserver"
 
-6.  Add control scripts:
+1.  Add control scripts:
 
     {{< file "/etc/tinc/linodeVPN/tinc-up" aconf >}}
 #!/bin/sh
 ip link set $INTERFACE up
 ip addr add 192.168.100.140 dev $INTERFACE
 ip route add 192.168.100.0/24 dev $INTERFACE
-
 {{< /file >}}
-
-
 
     {{< file "/etc/tinc/linodeVPN/tinc-down" aconf >}}
 #!/bin/sh
 ip route del 192.168.100.0/24 dev $INTERFACE
 ip addr del 192.168.100.140 dev $INTERFACE
 ip link set $INTERFACE down
-
 {{< /file >}}
 
-
-7.  Change permissions:
+1.  Change permissions:
 
         sudo chmod -v +x /etc/tinc/linodeVPN/tinc-{up,down}
 
-8.  The systemd unit file on this server will be identical to the previous servers:
+1.  The systemd unit file on this server will be identical to the previous servers:
 
     {{< file "/etc/systemd/system/tinc.service" aconf >}}
 [Unit]
@@ -378,11 +365,9 @@ RestartSec=60
 
 [Install]
 WantedBy=multi-user.target
-
 {{< /file >}}
 
-
-9.  The last step is to interchange host files between all nodes. You will need to copy the application and database server's host files to the web server, and web server's host file to the application and database servers.
+1.  The last step is to interchange host files between all nodes. You will need to copy the application and database server's host files to the web server, and web server's host file to the application and database servers.
 
     From `webserver`:
 
@@ -402,8 +387,7 @@ WantedBy=multi-user.target
         scp /etc/tinc/linodeVPN/hosts/dbserver <user>@<webserver>:/tmp/
         ssh -t <user>@<webserver> sudo mv -v /tmp/dbserver /etc/tinc/linodeVPN/hosts/
 
-
-10.  Finally, modify the `tinc.conf` file on `appserver` and `dbserver`. The new configuration files need to tell tinc to look for other nodes:
+1.  Finally, modify the `tinc.conf` file on `appserver` and `dbserver`. The new configuration files need to tell tinc to look for other nodes:
 
     {{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
 Name = appserver
@@ -411,7 +395,6 @@ Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = dbserver
 ConnectTo = webserver
-
 {{< /file >}}
 
     {{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
@@ -420,10 +403,9 @@ Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = appserver
 ConnectTo = webserver
-
 {{< /file >}}
 
-11.  Now you can start the tinc service on the webserver:
+1.  Now you can start the tinc service on the webserver:
 
          sudo systemctl enable tinc.service
          sudo systemctl start tinc.service
@@ -441,12 +423,12 @@ The cheat-sheet in this case is:
 After the previous two sections, you should be familiar with the configuration procedure:
 
 1.  Install tinc VPN on each node.
-2.  Create the VPN's working directory on each node.
-3.  Create `tinc.conf` and host files on every node.
-4.  Create VPN control scripts for all tinc instances.
-5.  Create systemd unit files.
-6.  Exchange host files amongst all nodes.
-7.  Enable tinc systemd unit(s).
+1.  Create the VPN's working directory on each node.
+1.  Create `tinc.conf` and host files on every node.
+1.  Create VPN control scripts for all tinc instances.
+1.  Create systemd unit files.
+1.  Exchange host files amongst all nodes.
+1.  Enable tinc systemd unit(s).
 
 The configuration file `tinc.conf` on Linodes 1, 2, and 3 should point only to Linode HQ (`ConnectTo`). The configuration file on Linode HQ should define connections with all nodes using the same directive. The corresponding configuration files are:
 
@@ -457,9 +439,7 @@ Name = linode1
 Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = linodeHQ
-
 {{< /file >}}
-
 
 **Linode2:**
 
@@ -468,9 +448,7 @@ Name = linode2
 Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = linodeHQ
-
 {{< /file >}}
-
 
 **Linode3:**
 
@@ -479,9 +457,7 @@ Name = linode3
 Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = linodeHQ
-
 {{< /file >}}
-
 
 **The central server:**
 
@@ -492,6 +468,4 @@ AddressFamily = ipv4
 ConnectTo = linode1
 ConnectTo = linode2
 ConnectTo = linode3
-
 {{< /file >}}
-

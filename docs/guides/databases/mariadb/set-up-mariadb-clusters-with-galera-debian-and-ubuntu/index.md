@@ -54,11 +54,11 @@ On Debian 9 and later, run `sudo apt install dirmngr` before importing the key.
 
 3.  Install MariaDB, Galera, and Rsync:
 
-    - **Recommended** - MariaDB 10.1 and above:
+    -   **Recommended** - MariaDB 10.1 and above:
 
             sudo apt update && sudo apt install -y rsync mariadb-server
 
-    - MariaDB 10.0:
+    -   MariaDB 10.0:
 
             sudo apt update && sudo apt install -y rsync galera mariadb-galera-server
 
@@ -85,7 +85,6 @@ wsrep_node_address="192.168.1.1"
 wsrep_node_name="node_1"
 wsrep_sst_method=rsync
 {{< /file >}}
-
 
 2.  Reboot both of your non-primary servers in the cluster to enable the new `galera.cnf` file settings.
 

@@ -12,8 +12,8 @@ modified_by:
   name: Nathaniel Stickman
 title: "An ASP.NET Core on Linux Tutorial"
 h1_title: "Tutorial: Hosting ASP.NET Core on Linux"
-image: ASPNET.jpg
 enable_h1: true
+image: ASPNET.jpg
 contributor:
   name: Nathaniel Stickman
   link: https://github.com/nasanos
@@ -28,15 +28,15 @@ This guide shows you how to install ASP.NET Core on your Linux server and how to
 
 ## Before You Begin
 
-1. Familiarize yourself with our [Getting Started with Linode](/docs/getting-started/) guide and complete the steps for setting your Linode's hostname and timezone.
+1.  Familiarize yourself with our [Getting Started with Linode](/docs/getting-started/) guide and complete the steps for setting your Linode's hostname and timezone.
 
-1. This guide uses `sudo` wherever possible. Complete the sections of our [How to Secure Your Server](/docs/security/securing-your-server/) guide to create a standard user account, harden SSH access, and remove unnecessary network services.
+1.  This guide uses `sudo` wherever possible. Complete the sections of our [How to Secure Your Server](/docs/security/securing-your-server/) guide to create a standard user account, harden SSH access, and remove unnecessary network services.
 
-1. Update your system:
+1.  Update your system:
 
         sudo apt update && sudo apt upgrade
 
-1. This guide uses `example-app` as the name of the ASP.NET Core application and `example.com` as your server's domain name. Replace these with your preferred application name and actual server name, respectively.
+1.  This guide uses `example-app` as the name of the ASP.NET Core application and `example.com` as your server's domain name. Replace these with your preferred application name and actual server name, respectively.
 
 {{< note >}}
 The steps in this guide are  written for a non-root user. Commands that require elevated privileges are prefixed with `sudo`. If you are not familiar with the `sudo` command, see the [Linux Users and Groups](/docs/tools-reference/linux-users-and-groups/) guide.
@@ -46,28 +46,28 @@ The steps in this guide are  written for a non-root user. Commands that require 
 
 These installation steps work for Debian 10 and Ubuntu 20.04. If you are using another Linux distribution, refer to the Microsoft's [Install .NET on Linux](https://docs.microsoft.com/en-us/dotnet/core/install/linux) guide.
 
-1. Add Microsoft's package keys and its package repository.
+1.  Add Microsoft's package keys and its package repository.
 
-    - On Debian:
+    -   On Debian:
 
             wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
             sudo dpkg -i packages-microsoft-prod.deb
 
-    - On Ubuntu:
+    -   On Ubuntu:
 
             wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
             sudo dpkg -i packages-microsoft-prod.deb
 
-1. Update the package indices.
+1.  Update the package indices.
 
         sudo apt update
 
-1. Install the APT package allowing you to use repositories over HTTPS and update APT's indices again.
+1.  Install the APT package allowing you to use repositories over HTTPS and update APT's indices again.
 
         sudo apt install apt-transport-https
         sudo apt update
 
-1. Install the .NET Core SDK.
+1.  Install the .NET Core SDK.
 
         sudo apt install dotnet-sdk-5.0
 
@@ -79,34 +79,34 @@ These installation steps work for Debian 10 and Ubuntu 20.04. If you are using a
 
         sudo snap install dotnet-sdk
 
-1. Verify the .NET Core version installed
+1.  Verify the .NET Core version installed
 
         dotnet --version
 
 ## Create a Web Application with .NET Core
 
-1. Initialize a base .NET web application project.
+1.  Initialize a base .NET web application project.
 
         dotnet new webapp -o example-app
 
-1. Change into the application's directory.
+1.  Change into the application's directory.
 
         cd example-app
 
     Unless noted otherwise, all subsequent commands in this guide assume you are still in the application's directory.
 
-1. Run the application.
+1.  Run the application.
 
         dotnet watch run
 
     .NET Core serves the application on `localhost` port `5001`. To visit the application remotely, you can use an SSH tunnel:
 
-    - On Windows, you can use the PuTTY tool to set up your SSH tunnel. Follow the appropriate section of the [Using SSH on Windows](/docs/guides/using-ssh-on-windows/#ssh-tunnelingport-forwarding) guide, replacing the example port number there with `5001`.
-    - On OS X or Linux, use the following command to set up the SSH tunnel. Replace `example-user` with your username on the application server and `192.0.2.0` with the server's IP address.
+    -   On Windows, you can use the PuTTY tool to set up your SSH tunnel. Follow the appropriate section of the [Using SSH on Windows](/docs/guides/using-ssh-on-windows/#ssh-tunnelingport-forwarding) guide, replacing the example port number there with `5001`.
+    -   On OS X or Linux, use the following command to set up the SSH tunnel. Replace `example-user` with your username on the application server and `192.0.2.0` with the server's IP address.
 
             ssh -L5001:localhost:5001 example-user@192.0.2.0
 
-1. Now you can visit the application in your browser by navigating to `https://localhost:5001`.
+1.  Now you can visit the application in your browser by navigating to `https://localhost:5001`.
 
     {{< note >}}
 .NET Core serves your application over HTTPS. When visiting the application, you browser may warn you that the SSL certificate is self-signed. Choose to proceed anyway.
@@ -122,11 +122,11 @@ The steps in this section show you how to set up NGINX as the reverse proxy serv
 
 ### Install and Configure NGINX
 
-1. Install NGINX:
+1.  Install NGINX:
 
         sudo apt install nginx
 
-1. Create a `/etc/nginx/proxy.conf` file, and add the contents of the example file:
+1.  Create a `/etc/nginx/proxy.conf` file, and add the contents of the example file:
 
     {{< file "/etc/nginx/proxy.conf" >}}
 proxy_redirect          off;
@@ -142,7 +142,7 @@ proxy_read_timeout      90;
 proxy_buffers           32 4k;
     {{< /file >}}
 
-1. Open the NGINX configuration file — `/etc/nginx/nginx.conf` — and replace its contents with the following:
+1.  Open the NGINX configuration file — `/etc/nginx/nginx.conf` — and replace its contents with the following:
 
     {{< file "/etc/nginx/nginx.conf" >}}
 user www-data;
@@ -184,7 +184,7 @@ http {
 }
     {{< /file >}}
 
-1. Open access to the HTTPS port (`443`) on your server's firewall.
+1.  Open access to the HTTPS port (`443`) on your server's firewall.
 
         sudo ufw allow https
         sudo ufw reload
@@ -193,36 +193,36 @@ http {
 
 The steps below show you how to use [Certbot](https://certbot.eff.org) to request and download a free certificate from [Let's Encrypt](https://letsencrypt.org) and how to add that certificate to your NGINX server.
 
-1. Install the [Snap Store](https://snapcraft.io/docs/getting-started). Snap provides application bundles that work across major Linux distributions. If you are using Ubuntu, Snap should already be installed (since version 16.04):
+1.  Install the [Snap Store](https://snapcraft.io/docs/getting-started). Snap provides application bundles that work across major Linux distributions. If you are using Ubuntu, Snap should already be installed (since version 16.04):
 
         sudo apt install snapd
 
-1. Update and refresh Snap.
+1.  Update and refresh Snap.
 
         sudo snap install core && sudo snap refresh core
 
-1. Ensure that any existing Certbot installation is removed.
+1.  Ensure that any existing Certbot installation is removed.
 
         sudo apt remove certbot
 
-1. Install Certbot, and create a symbolic link for executing it.
+1.  Install Certbot, and create a symbolic link for executing it.
 
         sudo snap install --classic certbot
         sudo ln -s /snap/bin/certbot /usr/bin/certbot
 
-1. Download a certificate for your site.
+1.  Download a certificate for your site.
 
         sudo certbot certonly --nginx
 
     Certbot prompts you to select from the NGINX sites configured on your machine. Select the one with your domain name.
 
-1. Certbot includes a cron job that automatically renews your certificate before it expires. You can test the automatic renewal with the following command:
+1.  Certbot includes a cron job that automatically renews your certificate before it expires. You can test the automatic renewal with the following command:
 
         sudo certbot renew --dry-run
 
 ### Add the SSL Certificate to NGINX
 
-1. Add the SSL certificate and its key to your NGINX configuration, via the `ssl_certificate` and `ssl_certificate_key` properties as shown below:
+1.  Add the SSL certificate and its key to your NGINX configuration, via the `ssl_certificate` and `ssl_certificate_key` properties as shown below:
 
     {{< file "/etc/nginx/nginx.conf" >}}
 # [...]
@@ -240,12 +240,12 @@ The steps below show you how to use [Certbot](https://certbot.eff.org) to reques
 # [...]
     {{< /file >}}
 
-1. Verify the NGINX configuration. Then, assuming the test passes, restart NGINX.
+1.  Verify the NGINX configuration. Then, assuming the test passes, restart NGINX.
 
         sudo nginx -t
         sudo systemctl restart nginx
 
-1. You can test NGINX's routing to the application by running the application directly.
+1.  You can test NGINX's routing to the application by running the application directly.
 
         dotnet watch run
 
@@ -253,7 +253,7 @@ The steps below show you how to use [Certbot](https://certbot.eff.org) to reques
 
 The steps below ensure that your .NET Core application works properly with the NGINX reverse proxy. These steps also have you make a "published" executable of your application, which makes it easier to use in production scenarios.
 
-1. Open the `Startup.cs` file, and add the *Forwarded Headers* middleware. Ensure that the `app.UseForwarededHeaders` method is invoked before any other middleware.
+1.  Open the `Startup.cs` file, and add the *Forwarded Headers* middleware. Ensure that the `app.UseForwarededHeaders` method is invoked before any other middleware.
 
     {{< file "~/example-app/Startup.cs" >}}
 // [...]
@@ -277,17 +277,17 @@ using Microsoft.AspNetCore.HttpOverrides;
 // [...]
     {{< /file >}}
 
-1. Publish your application.
+1.  Publish your application.
 
         dotnet publish --configuration Release
 
     The output should indicate the location of an `example-app.dll` file. Take note of that location, as it is used in the `example-app.service` file created below. It should be similar to `/bin/Release/net5.0/example-app.dll`.
 
-1. Copy your project to the `/var/www` directory. This is a conventional place to store your production application, but it also allows you to separate your production and working versions of the application.
+1.  Copy your project to the `/var/www` directory. This is a conventional place to store your production application, but it also allows you to separate your production and working versions of the application.
 
         sudo cp -r ~/example-dotnet-app /var/www/example-dotnet-app
 
-1. Create a service file for `systemd` to run the application.
+1.  Create a service file for `systemd` to run the application.
 
     {{< file "/etc/systemd/system/example-app.service" >}}
 [Unit]
@@ -310,12 +310,12 @@ WantedBy=multi-user.target
 
 ### Run the Application
 
-1. Enable the `systemd` service for the published application, and then start it up.
+1.  Enable the `systemd` service for the published application, and then start it up.
 
         sudo systemctl enable example-app
         sudo systemctl start example-app
 
-1. Verify that the application is running by visiting its URL, `http://example.com`.
+1.  Verify that the application is running by visiting its URL, `http://example.com`.
 
 ## Conclusion
 

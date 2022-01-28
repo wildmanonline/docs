@@ -121,7 +121,7 @@ MariaDB [(none)]>
 
 ### Securing the Installation
 
-1. After accessing MariaDB as the root user of your database, enable the **mysql_native_password**
+1.  After accessing MariaDB as the root user of your database, enable the **mysql_native_password**
 plugin to enable root password authentication:
 
         USE mysql;
