@@ -6,7 +6,7 @@ license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 published: 2014-06-05
 description: 'Learn how to use, install, configure and perform tasks on database management platform Elasticsearch in these tutorials.'
 Keywords: 'elasticsearch,what is elasticsearch,install elasticsearch'
-title: Elasticsearch Guides, Tutorials, and Resources – Linode
+title: Elasticsearch
 aliases: ['/databases/elasticsearch/']
 ---
 
