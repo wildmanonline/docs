@@ -5,6 +5,7 @@ author:
 title: "Manage Firewall Rules"
 description: "How to add rules to a Linode Cloud Firewall."
 aliases: ['/products/networking/cloud-firewall/guides/add-rules/','/products/networking/cloud-firewall/guides/edit-rules/','/products/networking/cloud-firewall/guides/delete-rules/']
+modified: 2022-07-19
 ---
 
 A Cloud Firewall can be configured with both *Inbound* and *Outbound* rules.
@@ -63,6 +64,8 @@ Rules are separated into *inbound* and *outbound* sections.
 
   As of the time of this writing, if an IP address or range is invalid, users will be unable to **Save Changes** after reviewing new firewall rules, and no error message will appear. Users should ensure that all IP addresses and Ranges are valid and formatted correctly should they encounter this issue.
   {{< /note >}}
+
+  Example Test.
 
 1. Click on **Add Rule** to add the new rule to this Firewall. If you would like to add any additional rules, repeat the process outlined in this section.
 
