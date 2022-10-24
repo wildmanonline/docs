@@ -1,73 +1,79 @@
 ---
+modified: 2022-09-23
 title: Get Started
 description: "Get started with the Linode DNS Manager. Learn to add a domain and add DNS records."
 tab_group_main:
     weight: 20
 ---
 
-## Add a Domain
-
-If you're new to Linode, or if you've just purchased a new domain name, the first step is to add a new domain. Domains can be created and managed in the **Domains** section of the Cloud Manager.
+The *Domains* section of the [Cloud Manager](https://cloud.linode.com/domains) is a comprehensive DNS management interface that allows you to add DNS records for all of your domain names. This guide covers the use of the **Domains** section and basic domain setup. For an introduction to DNS in general, see our [Introduction to DNS Records](/docs/guides/dns-records-an-introduction/) guide.
 
 {{< note >}}
-Domains can't be purchased through Linode. Instead, purchase a domain through a domain name *registrar*. The domain can then be added to the Cloud Manager.
-{{< /note >}}
-
-If you don't know what DNS records to add to your new domain, the DNS Manager can insert some basic records when you create the new domain.
+Linode's DNS service is anycasted to over 250 locations around the world. This provides distributed denial-of-service (DDoS) attack mitigation, load balancing, and increased geographic distribution for our [name servers](/docs/guides/dns-records-an-introduction/#name-servers). These factors make our service reliable, fast, and a great choice for your DNS needs.
+{{</ note>}}
 
 {{< note >}}
-Creating a domain also creates its corresponding domain zone.
+To use the Linode DNS Manager to serve your domains, you must have an active Linode on your account. If you remove all active Linodes, your domains will no longer be served.
 {{</ note >}}
 
-1.  From the **Domains** section, click on **Create Domain**. The **Create Domain** panel appears, and this panel displays a form for your domain's information.
+## Getting Started
 
-1. If you want to add a *secondary zone* instead of a primary zone, click the **Secondary** radio button.
+The Domain Name System (DNS) attaches human-readable domain names to machine-usable IP addresses. In many ways, it is the phone book of the Internet. Just like a phone book can help you find the phone number of a business, DNS can take a domain name like `google.com` and translate it into an IP address like `74.125.19.147`. This global system allows users to remember the names of websites instead of their numeric IP addresses.
 
-   {{< note >}}
-In order for Linode's DNS servers to function as secondaries, your DNS primary server must notify and allow AXFR requests from the following IP addresses:
-
-    104.237.137.10
-    65.19.178.10
-    74.207.225.10
-    207.192.70.10
-    109.74.194.10
-    2600:3c00::a
-    2600:3c01::a
-    2600:3c02::a
-    2600:3c03::a
-    2a01:7e00::a
+{{< note >}}
+All steps in this guide are completed within the **[Domains](https://cloud.linode.com/domains)** section of the [Linode Cloud Manager](https://cloud.linode.com/).
 {{< /note >}}
 
-1.  Enter your domain name in the **Domain** field.
+## DNS Set-Up Checklist
 
-1.  Enter an administrator's email address in the **SOA Email Address** field.
+DNS records are only actively hosted on accounts with at least one Linode. When setting up a domain name on your Linode, make sure you perform the following steps:
 
-1.  If you are unfamiliar with DNS, the DNS Manager can automatically create some basic DNS records to get you started.
+1.  Register (purchase) a domain name if you haven't already.
+2.  Set your domain name to [use Linode's name servers](#use-linodes-name-servers-with-your-domain). You'll need to do this on your domain registrar's website and then wait up to 24 hours for the change to take effect.
+3.  Use the DNS Manager to [add a domain](#add-a-domain), and then start [adding some basic DNS records](#add-dns-records).
+4.  [Set reverse DNS](/docs/guides/configure-your-linode-for-reverse-dns/).
+5.  If you have any special DNS requirements, such as when using a third-party email server, add additional DNS records [for your specific needs](/docs/guides/common-dns-configurations/).
 
-      - To have it insert these records, select **Yes, insert a few records to get me started**, then select from the drop-down menu the Linode with which you want this domain zone associated.
+## Use Linode's Name Servers with Your Domain
 
-      - Alternatively, to keep the domain zone empty and prevent the DNS Manager from creating DNS records, select **No, I want the zone empty**.
+After you purchase a domain, log in to your domain registrar's control panel and set the name servers for your domain name to the entries below. See the instructions on your domain name registrar's website for more information.
 
-1.  Click **Create**. If you selected the option to have the DNS Manager insert basic DNS records, those records are now visible on the Domain's detail page. The created records should include SOA, NS, MX, and A/AAA.
+-   `ns1.linode.com`
+-   `ns2.linode.com`
+-   `ns3.linode.com`
+-   `ns4.linode.com`
+-   `ns5.linode.com`
 
-   If you elected to keep the zone empty, you can start adding DNS records now. The Domain detail page contains an SOA and NS record for the domain. Skip to the [Adding DNS Records](/docs/networking/dns/dns-manager-overview/##add-dns-records) section for instructions.
-
-## Add DNS Records
-
-When you first create a domain, you also need to add some DNS records to the domain. This section explains how to add your own records.
-
-1.  Select a domain from within the **Domains** section of the Cloud Manager. The domain's detail page appears.
-
-1.  The page is divided into different sections for each type of DNS record. Locate the section for the type of DNS record you want to add, then click **Add a Record**.
-
-      {{< note >}}
-The exact form fields vary depending on the type of DNS record you select.
+ {{< note >}}
+DNS changes can take up to 24 hours to propagate throughout the internet, although the changes are usually visible within several hours.
 {{< /note >}}
 
-1.  Enter a hostname in the **Hostname** field.
+## Create and Manage Domains
 
-1.  Enter the IP address of your server in the **IP Address** field. See [this quick answer page](/docs/guides/find-your-linodes-ip-address/) to find your Linode's IP address.
+The Linode DNS Manager allows you to create and manage domains. The DNS manager can be accessed from the **Domains** section of the Linode Cloud Manager. To find this area, log in to your [Cloud Manager](https://cloud.linode.com/) account and click the **Domains** link in the sidebar.
 
-1.  Select a time interval from the **TTL** menu. *TTL* stands for *time to live*, and affects how long DNS records are cached by DNS resolvers. When the designated time to live is reached, the resolver must query the authoritative name servers for new records.
+![The DNS Manger](access-domains-section.png "The DNS Manager")
 
-1.  Click **Save**. After a few minutes, the new DNS records become active.
+### DNS Manager Options Overview
+
+The section below provides a detailed description of the available options within the **Domains** section of the Linode Cloud Manager:
+
+![The DNS Manger](domains-overview.png "The DNS Manager")
+
+1.  All of your domains are listed under the **Domains** heading. To access your Domain's DNS records, click the name of a Domain.
+
+    Click the name of a domain to add or edit its DNS records. When you add a domain, the Cloud Manager will automatically create a zone file for your Domain.  Before you can add any DNS records, you must [add a domain](#add-a-domain).
+
+    {{< note >}}
+A *domain zone* is a collection of DNS records for a single domain name. **Creating a domain also creates its corresponding domain zone.** [Linode's APIv4](https://developers.linode.com/api/v4/), which is the backbone of the Cloud Manager, will validate the created zone file for any errors.
+
+The term *domain zone* becomes synonymous with the term *domain*, both in terms of use and administration.
+{{< /note >}}
+
+1.  If you have a zone that can be exported from a server or another hosting provider, click **Import a Zone** to import it.
+
+1.  Click **Create a Domain** to create a new domain zone.
+
+1. Click on the **Edit** button next to a domain zone to edit DNS records within a zone.
+
+1.  Click on the **more options ellipsis** to corresponding to clone an existing zone, or remove a zone.
