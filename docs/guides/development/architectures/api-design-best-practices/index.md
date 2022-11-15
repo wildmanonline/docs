@@ -120,7 +120,7 @@ Three main approaches exist for versioning your REST APIs.
 
 -   **Header Versioning**: This option works similarly to query-string versioning, but hides the process in the headers. Like query-string versioning, it has the advantage of being able to provide a default version. To give an example, here is a request to fetch `box` ID `9` from version `3` of the API:
 
-    ```code
+    ```command
     GET /boxes/9
     Custom-Header: api-version=3
     ```

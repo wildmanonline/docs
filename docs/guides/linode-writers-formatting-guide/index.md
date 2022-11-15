@@ -172,13 +172,13 @@ Commands that are not inline with paragraph text should be displayed with the *c
 
 -   **Code shortcode example**
 
-        ```code
+        ```command
         sudo systemctl restart apache2
         ```
 
     The above code shortcode is rendered with a light grey background by default:
 
-    ```code
+    ```command
     sudo systemctl restart apache2
     ```
 
@@ -186,14 +186,14 @@ Commands that are not inline with paragraph text should be displayed with the *c
 
     The code shortcode can accept multiple lines if more than one command needs to be displayed:
 
-        ```code
+        ```command
         sudo systemctl restart apache2
         sudo journalctl -u apache2
         ```
 
     The above code shortcode is rendered as:
 
-    ```code
+    ```command
     sudo systemctl restart apache2
     sudo journalctl -u apache2
     ```
@@ -202,21 +202,21 @@ Commands that are not inline with paragraph text should be displayed with the *c
 
     The `title` parameter can be used to specify a title that displayed above a code shortcode. This can be useful to label the server or workstation that a reader should execute the command on. For example, some guides instruct the reader to set up multiple servers. Specifying a title can disambiguate which server a given command should be run on.
 
-        ```code {title="Web server"}
+        ```command {title="Web server"}
         sudo systemctl restart apache2
         ```
 
-        ```code {title="Database server"}
+        ```command {title="Database server"}
         sudo systemctl restart mysql
         ```
 
     The above code shortcodes are rendered as:
 
-    ```code {title="Web server"}
+    ```command {title="Web server"}
     sudo systemctl restart apache2
     ```
 
-    ```code {title="Database server"}
+    ```command {title="Database server"}
     sudo systemctl restart mysql
     ```
 
@@ -224,13 +224,13 @@ Commands that are not inline with paragraph text should be displayed with the *c
 
     The `class` parameter can be used to specify that a command should be displayed with a dark background:
 
-        ```code {class="dark"}
+        ```command {class="dark"}
         sudo systemctl restart apache2
         ```
 
     The above code shortcode is rendered as:
 
-    ```code {class="dark"}
+    ```command {class="dark"}
     sudo systemctl restart apache2
     ```
 
@@ -248,7 +248,7 @@ This is equivalent to:
 
     Run the following command to restart Apache:
 
-    ```code
+    ```command
     sudo systemctl restart apache2
     ```
 
@@ -595,7 +595,7 @@ Hello world!
 
 Here's an example of a command (using the code shortcode) and its output (using the output shortcode) displayed together:
 
-    ```code
+    ```command
     echo "Hello world!"
     ```
 
@@ -605,7 +605,7 @@ Here's an example of a command (using the code shortcode) and its output (using 
 
 The above shortcodes are rendered as:
 
-```code
+```command
 echo "Hello world!"
 ```
 
