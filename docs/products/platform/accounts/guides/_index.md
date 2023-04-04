@@ -14,6 +14,8 @@ date: 2022-11-21
 
 - [Reset User Password](/docs/products/platform/accounts/guides/reset-user-password/): Change the password on your Linode account.
 
+- [Transfer Services to a Different Account](/docs/products/platform/accounts/guides/service-transfers/)
+
 - [Cancel Your Account](/docs/products/platform/accounts/guides/cancel-account/): Instructions on cancelling your Linode account.
 
 ## Security Controls
