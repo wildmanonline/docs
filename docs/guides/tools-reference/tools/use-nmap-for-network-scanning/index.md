@@ -1,13 +1,11 @@
 ---
 slug: use-nmap-for-network-scanning
 title: "How to Use Nmap for Network Scanning"
-title_meta: "How to Use Nmap for Network Scanning"
-description: 'Nmap is a highly flexible, open source tool for network scanning. Find step-by-step instructions on how to install Nmap in this guide ✓ Click here!'
-og_description: 'Nmap is a highly flexible, open source tool for network scanning. Find step-by-step instructions on how to install Nmap in this guide ✓ Click here!'
+description: "Nmap is a highly flexible, open source tool for network scanning. Find step-by-step instructions on how to install Nmap in this guide"
 keywords: ['nmap','network scanning','port scanning','network discovery','security audit','network scan tutorial','port scan example']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 authors: ["Nathaniel Stickman"]
-published: 2023-03-07
+published: 2023-09-05
 modified_by:
   name: Linode
 external_resources:
@@ -16,9 +14,9 @@ external_resources:
 - '[Official Nmap Project Guide to Network Discovery and Security Scanning](https://nmap.org/book/toc.html)'
 ---
 
-[*Nmap*](https://nmap.org/) is a popular, open source network scanning tool. It has a wide array of scanning options and capabilities, making it highly efficient and adaptable. Nmap helps system administers monitor a network's host and port usage, and helps security auditors catch potential vulnerabilities.
+[*Nmap*](https://nmap.org/) is a popular, open source network scanning tool. It has a wide array of scanning options and capabilities, making it highly efficient and adaptable. Nmap helps system administers monitor a network's host and port usage, and it helps security auditors catch potential vulnerabilities.
 
-In this guide, learn how to get started using Nmap for your network.
+In this guide, learn how to get started using Nmap for network analysis and troubleshooting.
 
 ## Before You Begin
 
@@ -40,7 +38,7 @@ This guide is written for a non-root user. Commands that require elevated privil
     sudo apt install nmap
     ```
     {{< /tab >}}
-    {{< tab "AlmaLinux, CentOS Stream, and Rocky Linux" >}}
+    {{< tab "CentOS Stream, AlmaLinux, and Rocky Linux" >}}
     ```command
     sudo dnf install nmap
     ```
@@ -64,11 +62,119 @@ This guide is written for a non-root user. Commands that require elevated privil
     ...
     ```
 
-## Using Nmap
+## Port Scan
 
-This section provides some explanation of the fundamental scanning features of Nmap and gives practical examples of how to use them.
+Port scanning is Nmap's core feature. It provides information about the state of ports on a given host or range of hosts. This can help evaluate what ports are listening for traffic on a host and provide more details about the host itself.
 
-### What Is Host Scanning?
+Nmap evaluates each port as being in one of the following six states:
+
+-   **Open**: Has an application or service actively accepting connections.
+-   **Closed**: Accessible, but without an application or service actively listening.
+-   **Filtered**: Usage cannot be determined because packets are filtered.
+-   **Unfiltered**: Accessible, but cannot be determined as either open or closed.
+-   **Open|Filtered**: Either open or filtered, but cannot determine for sure.
+-   **Closed|Filtered**: Either closed or filtered, but cannot determine for sure.
+
+In addition, Nmap can attempt to provide more detailed information about what is running on the host. For instance, Nmap can attempt to determine the host's operating system, or what service is listening on an open port.
+
+### Basic Port Scan
+
+To conduct a port scan with Nmap, use one of the following command. Replace `192.0.2.17` in the examples below (and all subsequent examples) with the actual IP address you want to scan:
+
+- **Scan a specific port:** Replace *[port-number]* with the port you would like to scan. Multiple ports should be delimited with a comma (for example: `-p 80,443`).
+
+    ```command
+    sudo nmap 192.0.2.17 -p [port-number]
+    ```
+
+- **Scan the first 1000 ports:**
+
+    ```command
+    sudo nmap 192.0.2.17
+    ```
+
+    ```output
+    Starting Nmap 7.80 ( https://nmap.org ) at 2023-09-01 13:05 EDT
+    Nmap scan report for EXAMPLE_HOSTNAME (192.0.2.17)
+    Host is up (0.0000060s latency).
+    Not shown: 999 closed ports
+    PORT   STATE SERVICE
+    22/tcp open  ssh
+
+    Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds
+    ```
+
+    Here, Nmap shows that port `22` is accessible and has a service (SSH) actively listening for connections.
+
+You can also scan a range of IP addresses. Here are some of the ways to do that, using the example IP address above:
+
+-   `192.0.2.0-128`: Scans hosts on the specified range. In this case, IP addresses ending between 0 and 128.
+-   `192.0.2.0/24`: Scans hosts for all IP address endings (`0`–`255`).
+-   `192.0.0.0/16`: Similar to `/24` but also scans the range of the third number in the IP address (i.e. scans all hosts between `192.0.0.0` and `192.0.255.255`).
+
+### Host Discovery Stage
+
+Before nmap will attempt to scan the ports of a Linode, it will first run a series of checks to ensure that the Linode is online (also known as the host discovery stage). These checks are different depending on the privileges of the user or the command options:
+
+- **Limited user without sudo:** sends SYN packets to ports 80 and 443.
+- **Root user or limited user using sudo:** sends an ICMP echo request, a SYN packet to port 443, an ACK packet to port 80, and an ICMP timestamp request.
+- **`-Pn` option:** Skips the host discovery stage altogether. See the "Command Options" section below.
+
+If firewall rules on the target machine block the ports or protocols used for the host discovery stage, nmap has the potential to falsely show that the target is offline. If nmap is reporting that the target is down but you suspect that it is up, try altering the host discovery checks by running nmap with sudo or using -Pn.\
+
+{{< note >}}
+When using the -Pn option to skip the host discovery stage, nmap will still attempt to scan ports even if the Linode is powered down or does not have working networking capabilities. In both of these cases, nmap will report that all of the Linode’s ports are in a filtered state. This does not necessarily indicate that the ports are being filtered by a firewall; it simply indicates that nmap could not determine the status of the port.
+{{< /note >}}
+
+### Additional Command Options
+
+Nmap provides additional options to fine-tune scans. To view a full list of options, run the `nmap` command without specifying addresses or options.
+
+To help you get started, here is a list of some of the most commonly used options:
+
+-   `-p0-`: Causes Nmap to scan every possible TCP port (the default scan includes the 1,000 most commonly used ports).
+-   `-F`: Causes Nmap to use a "fast" scan, scanning only the top 100 most commonly used ports.
+-   `-T4`: Adjusts timing parameters (can range from `-T0`, the slowest option, to `-T5`, the fastest and most aggressive option).
+-   `-A`: Includes "aggressive" tests with the scan, such as OS and service detection.
+-   `-v`: Makes Nmap's output verbose.
+
+Further on, find an example of how to use a few of these together for a more in-depth port scan.
+
+Nmap scans can often take a long time to complete. While a scan is running, you can press the up arrow key to get a status update:
+
+```output
+Service scan Timing: About 50.00% done; ETC: 12:00 (0:00:25 remaining)
+```
+
+Here is an example of a useful Nmap command to get an in-depth view of a particular host:
+
+```command
+sudo nmap -p0- -A 192.0.2.0
+```
+
+This commands scans all ports on `192.0.2.0` and tries to gather additional details on the host and the ports' services.
+
+```output
+Starting Nmap 7.80 ( https://nmap.org ) at 2023-09-01 13:07 EDT
+Nmap scan report for EXAMPLE_HOSTNAME (192.0.2.0)
+Host is up (0.00010s latency).
+Not shown: 65535 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+Device type: general purpose
+Running: Linux 2.6.X
+OS CPE: cpe:/o:linux:linux_kernel:2.6.32
+OS details: Linux 2.6.32
+Network Distance: 0 hops
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 4.22 seconds
+```
+
+Here, Nmap reports on the accessible port it found. It evaluates what service is likely running on that port (OpenSSH) and what OS that the service is running on (Ubuntu Linux). Nmap's report ends with a further evaluation of the OS running on the host.
+
+## What Is Host Scanning?
 
 Host scanning is the process of identifying hosts and their current statuses. One of the most useful host scanning procedures is identifying an IP range and scanning that range to see what hosts are there. This kind of host scanning can help keep track of host status and help catch unauthorized hosts on the network.
 
@@ -116,96 +222,6 @@ The steps in this section provide an example of how to run a host scan on a netw
     ```
 
 1.  Often, you may want more details on a particular host or range of hosts. At this point, you would likely want to run a port scan on each of those hosts. Find the steps for doing so in the next section.
-
-### What Is Port Scanning?
-
-Port scanning is Nmap's core feature. It provides information about the state of ports on a given host or range of hosts. This can help evaluate what ports are listening for traffic on a host and provide more details about the host itself.
-
-Nmap evaluates each port as being in one of the following six states:
-
--   **Open**: Has an application or service actively accepting connections.
--   **Closed**: Accessible, but without an application or service actively listening.
--   **Filtered**: Usage cannot be determined because packets are filtered.
--   **Unfiltered**: Accessible, but cannot be determined as either open or closed.
--   **Open|Filtered**: Either open or filtered, but cannot determine for sure.
--   **Closed|Filtered**: Either closed or filtered, but cannot determine for sure.
-
-In addition, Nmap can attempt to provide more detailed information about what is running on the host. For instance, Nmap can attempt to determine the host's operating system, or what service is listening on an open port.
-
-### Basic Port Scan
-
-Conducting a port scan with Nmap is very simple. Replace `192.0.2.0` in the following command (and all subsequent examples) with the actual IP address you want to scan:
-
-```command
-sudo nmap 192.0.2.0
-```
-
-```output
-Starting Nmap 7.80 ( https://nmap.org ) at 2023-09-01 13:05 EDT
-Nmap scan report for EXAMPLE_HOSTNAME (192.0.2.0)
-Host is up (0.0000060s latency).
-Not shown: 999 closed ports
-PORT   STATE SERVICE
-22/tcp open  ssh
-
-Nmap done: 1 IP address (1 host up) scanned in 0.11 seconds
-```
-
-Here, Nmap shows that port `22` is accessible and has a service (SSH) actively listening for connections.
-
-You can also scan a range of IP addresses. Here are some of the ways to do that, using the example IP address above:
-
--   `192.0.2.0-128`: Scans hosts on the specified range. In this case, IP addresses ending between 0 and 128.
--   `192.0.2.0/24`: Scans hosts for all IP address endings (`0`–`255`).
--   `192.0.0.0/16`: Similar to `/24` but also scans the range of the third number in the IP address (i.e. scans all hosts between `192.0.0.0` and `192.0.255.255`).
-
-### Advanced Port Scan
-
-Nmap provides a ton of options to fine-tune scans. Get a full list of options simply by running the `nmap` command without specifying addresses or options.
-
-To help you get started, here is a list of some of the most commonly used options:
-
--   `-p0-`: Causes Nmap to scan every possible TCP port (the default scan includes the 1,000 most commonly used ports).
--   `-F`: Causes Nmap to use a "fast" scan, scanning only the top 100 most commonly used ports.
--   `-T4`: Adjusts timing parameters (can range from `-T0`, the slowest option, to `-T5`, the fastest and most aggressive option).
--   `-A`: Includes "aggressive" tests with the scan, such as OS and service detection.
--   `-v`: Makes Nmap's output verbose.
-
-Further on, find an example of how to use a few of these together for a more in-depth port scan.
-
-Nmap scans can often take a long time to complete. While a scan is running, you can press the up arrow key to get a status update:
-
-```output
-Service scan Timing: About 50.00% done; ETC: 12:00 (0:00:25 remaining)
-```
-
-Here is an example of a useful Nmap command to get an in-depth view of a particular host:
-
-```command
-sudo nmap -p0- -A 192.0.2.0
-```
-
-This commands scans all ports on `192.0.2.0` and tries to gather additional details on the host and the ports' services.
-
-```output
-Starting Nmap 7.80 ( https://nmap.org ) at 2023-09-01 13:07 EDT
-Nmap scan report for EXAMPLE_HOSTNAME (192.0.2.0)
-Host is up (0.00010s latency).
-Not shown: 65535 closed ports
-PORT   STATE SERVICE VERSION
-22/tcp open  ssh     OpenSSH 8.9p1 Ubuntu 3ubuntu0.3 (Ubuntu Linux; protocol 2.0)
-Device type: general purpose
-Running: Linux 2.6.X
-OS CPE: cpe:/o:linux:linux_kernel:2.6.32
-OS details: Linux 2.6.32
-Network Distance: 0 hops
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 4.22 seconds
-```
-
-Here, Nmap reports on the accessible port it found. It evaluates what service is likely running on that port (OpenSSH) and what OS that the service is running on (Ubuntu Linux). Nmap's report ends with a further evaluation of the OS running on the host.
 
 ## Conclusion
 
